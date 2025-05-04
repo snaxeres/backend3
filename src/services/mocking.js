@@ -21,7 +21,7 @@ class MockingService {
  
             const users = [];
           
-            const password = await createHash('coder123', 10);
+            const password = await createHash('coder123', 50);
           
             for (let i = 0; i < count; i++) {
               users.push({

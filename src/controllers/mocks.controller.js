@@ -7,7 +7,7 @@ const createPets = async (req,res)=>{
 }
 
 const createUsers = async (req,res)=>{
-    const users = await MockingService.createUsersMocking(10);
+    const users = await MockingService.createUsersMocking(50);
     res.send({status: "exitoso", payload: users})
 }
 
