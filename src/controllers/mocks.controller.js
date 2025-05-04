@@ -11,7 +11,13 @@ const createUsers = async (req,res)=>{
     res.send({status: "exitoso", payload: users})
 }
 
+
+const generateData = async (req,res)=>{
+    const dataGenerated = await MockingService.generateData();
+    res.send({status: "exitoso", payload: dataGenerated})
+}
 export default {
     createPets,
-    createUsers
+    createUsers,
+    generateData
 }
