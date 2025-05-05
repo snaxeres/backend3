@@ -12,10 +12,21 @@ const createUsers = async (req,res)=>{
 }
 
 
-const generateData = async (req,res)=>{
-    const dataGenerated = await MockingService.generateData();
-    res.send({status: "exitoso", payload: dataGenerated})
-}
+const generateData = async (req, res) => {
+    const { users = 0, pets = 0 } = req.body;
+
+    try {
+        const { insertedUsers, insertedPets } = await MockingService.generateData(users, pets);
+        res.status(201).json({
+            status: "success",
+            message: `Se insertaron ${insertedUsers.length} usuarios y ${insertedPets.length} mascotas`,
+        });
+    } catch (error) {
+        res.status(500).json({ status: "error", message: error.message });
+    }
+};
+
+
 export default {
     createPets,
     createUsers,

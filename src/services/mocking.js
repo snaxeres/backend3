@@ -38,27 +38,20 @@ class MockingService {
         return users;
     }
 
-    static async generateData() {
+    static async generateData(users = 0, pets = 0) {
+        const usersData = await this.createUsersMocking(Number(users));
+        const petsData = await this.createPetsMocking(Number(pets));
 
-        // no estoy logrando la logica de este punto pero ya me quedan pocos intentos
-        const { users = 0, pets = 0 } = req.body;
+        const insertedUsers = await userModel.insertMany(usersData);
+        const insertedPets = await petModel.insertMany(petsData);
 
-        const usersData = await MockingService.createUsersMocking(Number(users));
-        const petsData = createPetsMocking(Number(pets));
-
-        for (let i = 0; i < usersData.length; i++) {
-            await userModel.create(usersData[i]);
+        return {
+            insertedUsers,
+            insertedPets
         }
 
-        for (let i = 0; i < petsData.length; i++) {
-            await petModel.create(petsData[i]);
-        }
-
-        res.json({
-            status: 'success',
-            message: `Se insertaron ${usersData.length} usuarios y ${petsData.length} mascotas`
-        });
     }
+
 }
 
 export default MockingService
